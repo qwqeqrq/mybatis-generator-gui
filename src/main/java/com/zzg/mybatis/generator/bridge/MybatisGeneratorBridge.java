@@ -26,7 +26,7 @@ import java.util.Set;
  * <p>
  * Created by Owen on 6/30/16.
  */
-public class MybatisGeneratorBridge {
+public class  MybatisGeneratorBridge {
 
 	private static final Logger _LOG = LoggerFactory.getLogger(MybatisGeneratorBridge.class);
 

@@ -205,7 +205,8 @@ public class ConfigHelper {
 		_LOG.info("jar resource: {}", resource);
         if (resource != null) {
 			try {
-				File file = new File(resource.toURI().getRawPath() + "/../lib/" + type.getConnectorJarFile());
+                _LOG.info("jar resource: {}", resource.toURI().getRawPath() + "/../lib/" + connectorJarFileName);
+				File file = new File(resource.toURI().getRawPath() + "/../lib/" + connectorJarFileName);
 				return file.getCanonicalPath();
             } catch (Exception e) {
                 throw new RuntimeException("找不到驱动文件，请联系开发者");

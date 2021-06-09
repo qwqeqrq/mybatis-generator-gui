@@ -28,6 +28,8 @@ public class DbUtil {
     }
 
     public static List<String> getTableNames(DatabaseConfig config) throws Exception {
+        DbType dbType = DbType.valueOf(config.getDbType());
+        Class.forName(dbType.getDriverClass());
         String url = getConnectionUrlWithSchema(config);
         _LOG.info("getTableNames, connection url: {}", url);
         Connection conn = DriverManager.getConnection(url, config.getUsername(), config.getPassword());
@@ -58,7 +60,7 @@ public class DbUtil {
     }
 
     public static String getConnectionUrlWithSchema(DatabaseConfig dbConfig) throws ClassNotFoundException {
-		DbType dbType = DbType.valueOf(dbConfig.getDbType());
+		DbType dbType = DbType.MySQL;
 		String connectionUrl = String.format(dbType.getConnectionUrlPattern(), dbConfig.getHost(), dbConfig.getPort(), dbConfig.getSchema(), dbConfig.getEncoding());
         _LOG.info("getConnectionUrlWithSchema, connection url: {}", connectionUrl);
         return connectionUrl;
