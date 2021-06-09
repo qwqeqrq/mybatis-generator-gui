@@ -64,11 +64,15 @@ public class MybatisGeneratorBridge {
 		_LOG.info("connectorLibPath: {}", connectorLibPath);
         config.addClasspathEntry(connectorLibPath);
         Context context = new Context(ModelType.CONDITIONAL);
-        config.addContext(context);
         // Table config
+        config.addContext(context);
         TableConfiguration tableConfig = new TableConfiguration(context);
         tableConfig.setTableName(generatorConfig.getTableName());
+        tableConfig.setSchema(selectedDatabaseConfig.getSchema());
         tableConfig.setDomainObjectName(generatorConfig.getDomainObjectName());
+        tableConfig.setCountByExampleStatementEnabled(false);
+        tableConfig.setDeleteByExampleStatementEnabled(false);
+        tableConfig.setSelectByPrimaryKeyStatementEnabled(false);
         //添加GeneratedKey主键生成
 		if (StringUtils.isNoneEmpty(generatorConfig.getGenerateKeys())) {
 			tableConfig.setGeneratedKey(new GeneratedKey(generatorConfig.getGenerateKeys(), selectedDatabaseConfig.getDbType(), true, null));
@@ -138,7 +142,7 @@ public class MybatisGeneratorBridge {
             pluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.MySQLLimitPlugin");
             context.addPluginConfiguration(pluginConfiguration);
         }
-        context.setTargetRuntime("MyBatis3");
+        context.setTargetRuntime("MyBatis3Simple");
 
         List<String> warnings = new ArrayList<>();
         Set<String> fullyqualifiedTables = new HashSet<>();

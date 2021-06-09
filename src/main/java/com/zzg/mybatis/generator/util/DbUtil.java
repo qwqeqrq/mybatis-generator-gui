@@ -32,7 +32,7 @@ public class DbUtil {
         _LOG.info("getTableNames, connection url: {}", url);
         Connection conn = DriverManager.getConnection(url, config.getUsername(), config.getPassword());
         DatabaseMetaData md = conn.getMetaData();
-        ResultSet rs = md.getTables(null, config.getUsername().toUpperCase(), null, null);
+        ResultSet rs = md.getTables(null, config.getUsername().toUpperCase(), null, new String[]{"TABLE"});
         List<String> tables = new ArrayList<>();
         while (rs.next()) {
             tables.add(rs.getString(3));
